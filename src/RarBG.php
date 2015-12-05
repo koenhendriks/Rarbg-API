@@ -49,6 +49,9 @@ class RarBG
 
         $url .= $paramString;
 
+        if($this->tokenExpireTime <= time())
+            $this->token = $this->getNewToken();
+
         if (!$data = file_get_contents($url)) {
             $error = error_get_last();
             throw new Exception("HTTP request failed. Error was: " . $error['message']);
