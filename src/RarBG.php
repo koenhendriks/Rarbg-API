@@ -1,5 +1,6 @@
 <?php
 
+require_once('Result.php');
 /**
  * RarBG.php
  * Created by: koen
@@ -65,12 +66,19 @@ class RarBG
 
             if(isset($data->error)){
                 throw new ErrorException($data->error,$data->error_code);
-            }elseif (isset($data->token)){
-                return $data;
+            }else{
+                $results = [];
+                foreach($data->torrent_results as $result){
+                    array_push($results, new Result($result));
+                }
+                return $results;
             }
-
-            return false;
         }
+    }
+
+    public function getList(){
+        $this->mode = 'list';
+        return $this->getFromApi();
     }
 
     /**
@@ -118,6 +126,4 @@ class RarBG
         $this->token = $token;
         return $this;
     }
-
-
 }
