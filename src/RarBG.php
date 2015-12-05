@@ -9,6 +9,19 @@
 class RarBG
 {
     private $token;
+    private $appId;
+    private $tokenExpireTime;
+    private $searchString;
+    private $imdbCode;
+    private $tvdbCode;
+    private $tmdbCode;
+    private $categories;
+    private $minimalSeeders;
+    private $minimalLeechers;
+
+    private $limit = 25;
+    private $sort = 'last';
+    private $mode = 'list';
     private $url = 'https://torrentapi.org/pubapi_v2.php';
 
     /**
@@ -16,7 +29,7 @@ class RarBG
      */
     public function __construct()
     {
-        $this->token = $this->getToken();
+        $this->token = $this->getNewToken();
     }
 
     /**
@@ -63,10 +76,45 @@ class RarBG
      * @return mixed
      * @throws Exception
      */
-    private function getToken()
+    private function getNewToken()
     {
-        return $this->getFromApi([
-            'get_token' => 'get_token'
-        ])->token;
+        $url = $this->url .'?get_token=get_token';
+
+        if (!$data = file_get_contents($url)) {
+            $error = error_get_last();
+            throw new Exception("HTTP request failed. Error was: " . $error['message']);
+        } else {
+            $data = json_decode($data);
+
+            if(isset($data->error)){
+                throw new ErrorException($data->error,$data->error_code);
+            }elseif (isset($data->token)){
+                $this->tokenExpireTime = time()+900; // token expires 15 minutes
+                $this->token = $data->token;
+                return $data->token;
+            }
+
+            return false;
+        }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     * @return RarBG
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+
 }

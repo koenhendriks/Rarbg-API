@@ -8,7 +8,6 @@
 
 include('src/RarBG.php');
 
-var_dump(new RarBG());
-
+$rar = new RarBG();
 
 
