@@ -28,31 +28,11 @@ class Result
     }
 
     /**
-     * @param mixed $filename
-     * @return Result
-     */
-    public function setFilename($filename)
-    {
-        $this->filename = $filename;
-        return $this;
-    }
-
-    /**
      * @return mixed
      */
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * @param mixed $category
-     * @return Result
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-        return $this;
     }
 
     /**
@@ -62,16 +42,4 @@ class Result
     {
         return $this->download;
     }
-
-    /**
-     * @param mixed $download
-     * @return Result
-     */
-    public function setDownload($download)
-    {
-        $this->download = $download;
-        return $this;
-    }
-
-
 }
