@@ -18,6 +18,7 @@ class RarBG
     private $categories;
     private $minimalSeeders;
     private $minimalLeechers;
+    private $lastApiCall;
 
     private $limit = 25;
     private $sort = 'last';
@@ -36,37 +37,36 @@ class RarBG
      * GetFromApi
      * Does the requests to the rarbg api
      *
-     * @param array $params
      * @return mixed $data object with the data from the API
      * @throws Exception
      * @internal param string $url the url that will be called
      */
-    private function getFromApi($params = []){
+    private function getFromApi(){
 
         $url = $this->url;
 
-        if(count($params) > 0){
-            $paramString = '?';
-            foreach($params as $key => $value)
-                $paramString .= $key .'='.$value.'&';
+        $paramString = '?token='.$this->token;
 
-            $url .= $paramString;
-        }else{
-            die('Invalid Parameters');
-        }
+        $url .= $paramString;
 
         if (!$data = file_get_contents($url)) {
-                die("HTTP API request failed.");
+            $error = error_get_last();
+            throw new Exception("HTTP request failed. Error was: " . $error['message']);
         } else {
+
+            if((time() - $this->lastApiCall) < 2)
+                throw new Exception('The api has a 1 request per 2s limit.');
+
+            $this->lastApiCall = time();
             $data = json_decode($data);
+
             if(isset($data->error)){
-                die("Code ".$data->error_code.", ".$data->error);
-            }else{
+                throw new ErrorException($data->error,$data->error_code);
+            }elseif (isset($data->token)){
                 return $data;
             }
-//            if($data->status != 'ok')
-//                throw new Exception("API request failed. Error was: " . $data->status_message);
-//            return $data->data;
+
+            return false;
         }
     }
 
