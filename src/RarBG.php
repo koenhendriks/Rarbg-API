@@ -107,11 +107,6 @@ class RarBG
         }
     }
 
-    public function getList(){
-        $this->mode = 'list';
-        return $this->getFromApi();
-    }
-
     /**
      * Get a (new) token from rarbg api
      *
@@ -164,4 +159,186 @@ class RarBG
     public function run(){
         return $this->getFromApi();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSearchString()
+    {
+        return $this->searchString;
+    }
+
+    /**
+     * @param mixed $searchString
+     * @return RarBG
+     */
+    public function setSearchString($searchString)
+    {
+        $this->searchString = $searchString;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImdbCode()
+    {
+        return $this->imdbCode;
+    }
+
+    /**
+     * @param mixed $imdbCode
+     * @return RarBG
+     */
+    public function setImdbCode($imdbCode)
+    {
+        $this->imdbCode = $imdbCode;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTvdbCode()
+    {
+        return $this->tvdbCode;
+    }
+
+    /**
+     * @param mixed $tvdbCode
+     * @return RarBG
+     */
+    public function setTvdbCode($tvdbCode)
+    {
+        $this->tvdbCode = $tvdbCode;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTmdbCode()
+    {
+        return $this->tmdbCode;
+    }
+
+    /**
+     * @param mixed $tmdbCode
+     * @return RarBG
+     */
+    public function setTmdbCode($tmdbCode)
+    {
+        $this->tmdbCode = $tmdbCode;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     * @return RarBG
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMinimalSeeders()
+    {
+        return $this->minimalSeeders;
+    }
+
+    /**
+     * @param mixed $minimalSeeders
+     * @return RarBG
+     */
+    public function setMinimalSeeders($minimalSeeders)
+    {
+        $this->minimalSeeders = $minimalSeeders;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMinimalLeechers()
+    {
+        return $this->minimalLeechers;
+    }
+
+    /**
+     * @param mixed $minimalLeechers
+     * @return RarBG
+     */
+    public function setMinimalLeechers($minimalLeechers)
+    {
+        $this->minimalLeechers = $minimalLeechers;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int $limit
+     * @return RarBG
+     */
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param string $sort
+     * @return RarBG
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @param string $mode
+     * @return RarBG
+     */
+    public function setMode($mode)
+    {
+        $this->mode = $mode;
+        return $this;
+    }
+
+
 }
