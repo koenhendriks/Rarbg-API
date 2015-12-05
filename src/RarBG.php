@@ -28,10 +28,15 @@ class RarBG
 
     /**
      * Constructor for the API
+     * @param $appId string to constrcut the class with an app id.
+     * @throws Exception
      */
-    public function __construct()
+    public function __construct($appId)
     {
-        $this->token = $this->getNewToken();
+        if(!isset($appId))
+            throw new Exception('No app Id set. When querying the api please use the appId parameter with your app name so we can generate statistics for it.');
+
+        $this->appId = $appId;
     }
 
     /**
@@ -44,15 +49,41 @@ class RarBG
      */
     private function getFromApi(){
 
-        $url = $this->url;
-
-        $paramString = '?token='.$this->token;
-
-        $url .= $paramString;
-
         if($this->tokenExpireTime <= time())
             $this->token = $this->getNewToken();
 
+        $url = $this->url;
+
+        // Set parameters for call
+        $paramString = '?token='.$this->token;
+        $paramString .= '&sort='.$this->sort;
+        $paramString .= '&mode='.$this->mode;
+        $paramString .= '&limit='.$this->limit;
+
+        if(isset($this->searchString))
+            $paramString .= '&searchString='.$this->searchString;
+
+        if(isset($this->imdbCode))
+            $paramString .= '&imdbCode='.$this->imdbCode;
+
+        if(isset($this->tvdbCode))
+            $paramString .= '&tvdbCode='.$this->tvdbCode;
+
+        if(isset($this->tmdbCode))
+            $paramString .= '&tmdbCode='.$this->tmdbCode;
+
+        if(isset($this->categories))
+            $paramString .= '&categories='.$this->categories;
+
+        if(isset($this->minimalSeeders))
+            $paramString .= '&minimalSeeders='.$this->minimalSeeders;
+
+        if(isset($this->minimalLeechers))
+            $paramString .= '&minimalLeechers='.$this->minimalLeechers;
+
+
+        $url .= $paramString;
+        echo $url.'<br/>';
         if (!$data = file_get_contents($url)) {
             $error = error_get_last();
             throw new Exception("HTTP request failed. Error was: " . $error['message']);
@@ -125,5 +156,12 @@ class RarBG
     {
         $this->token = $token;
         return $this;
+    }
+
+    /**
+     * Run API call with set properties
+     */
+    public function run(){
+        return $this->getFromApi();
     }
 }
