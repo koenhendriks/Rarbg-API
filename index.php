@@ -8,6 +8,13 @@
 
 include('src/RarBG.php');
 
-$rar = new RarBG();
+$rar = new RarBG('MyRarBGApp');
 
+$data = $rar->run();
 
+foreach($data as $result){
+    /**
+     * @var $result Result
+     */
+    echo '<a href="'.$result->getDownload().'">'.$result->getFilename().'</a><br/>';
+}
