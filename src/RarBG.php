@@ -21,6 +21,7 @@ class RarBG
     private $minimalLeechers;
     private $lastApiCall;
 
+    private $debug = false;
     private $limit = 25;
     private $sort = 'last';
     private $mode = 'list';
@@ -83,7 +84,10 @@ class RarBG
 
 
         $url .= $paramString;
-        echo $url.'<br/>';
+
+        if($this->debug)
+            echo $url.'<br/>';
+
         if (!$data = file_get_contents($url)) {
             $error = error_get_last();
             throw new Exception("HTTP request failed. Error was: " . $error['message']);
@@ -340,5 +344,14 @@ class RarBG
         return $this;
     }
 
+    /**
+     * @param bool|true $debug
+     * @return mixed
+     */
+    public function setDebug($debug = true)
+    {
+        $this->debug = true;
+        return $this;
+    }
 
 }

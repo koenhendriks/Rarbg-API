@@ -10,6 +10,7 @@ include('src/RarBG.php');
 
 $rar = new RarBG('MyRarBGApp');
 
+$rar->setDebug();
 $data = $rar->run();
 
 foreach($data as $result){
