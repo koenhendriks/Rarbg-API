@@ -11,6 +11,7 @@ class RarBG
 {
     private $token;
     private $appId;
+    private $mode;
     private $tokenExpireTime;
     private $searchString;
     private $imdbCode;
@@ -24,7 +25,6 @@ class RarBG
     private $debug = false;
     private $limit = 25;
     private $sort = 'last';
-    private $mode = 'list';
     private $url = 'https://torrentapi.org/pubapi_v2.php';
 
     /**
@@ -58,7 +58,6 @@ class RarBG
         // Set parameters for call
         $paramString = '?token='.$this->token;
         $paramString .= '&sort='.$this->sort;
-        $paramString .= '&mode='.$this->mode;
         $paramString .= '&limit='.$this->limit;
 
         if(isset($this->searchString))
@@ -82,6 +81,10 @@ class RarBG
         if(isset($this->minimalLeechers))
             $paramString .= '&minimalLeechers='.$this->minimalLeechers;
 
+        if(!isset($this->mode))
+            $this->autoMode(); // Search or list ?
+
+        $paramString .= '&mode='.$this->mode;
 
         $url .= $paramString;
 
