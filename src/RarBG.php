@@ -63,7 +63,7 @@ class RarBG
         $paramString .= '&ranked='.$this->ranked;
 
         if(isset($this->searchString))
-            $paramString .= '&search_string='.$this->searchString;
+            $paramString .= '&search_string='.urlencode($this->searchString);
 
         if(isset($this->imdbCode))
             $paramString .= '&search_imdb='.$this->imdbCode;
@@ -88,7 +88,7 @@ class RarBG
 
         $paramString .= '&mode='.$this->mode;
 
-        $url .= urlencode($paramString);
+        $url .= $paramString;
 
         if($this->debug)
             echo $url.'<br/>';
