@@ -17,6 +17,7 @@ class Result
     private $pubdate;
     private $ranked;
     private $info_page;
+    private $extended = true;
 
     /**
      * @var EpisodeInfo
@@ -32,6 +33,7 @@ class Result
     {
         if($format == 'json') {
             $this->filename = $result->filename;
+            $this->extended = false;
         }else{
             $this->filename = $result->title;
             $this->seeders = $result->seeders;
@@ -127,6 +129,25 @@ class Result
     {
         return $this->episode_info;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isExtended()
+    {
+        return $this->extended;
+    }
+
+    /**
+     * @param boolean $extended
+     * @return RarBg
+     */
+    public function setExtended($extended)
+    {
+        $this->extended = $extended;
+        return $this;
+    }
+
 
 
 }
