@@ -61,25 +61,25 @@ class RarBG
         $paramString .= '&limit='.$this->limit;
 
         if(isset($this->searchString))
-            $paramString .= '&searchString='.$this->searchString;
+            $paramString .= '&search_string='.$this->searchString;
 
         if(isset($this->imdbCode))
-            $paramString .= '&imdbCode='.$this->imdbCode;
+            $paramString .= '&search_imdb='.$this->imdbCode;
 
         if(isset($this->tvdbCode))
-            $paramString .= '&tvdbCode='.$this->tvdbCode;
+            $paramString .= '&search_tvdb='.$this->tvdbCode;
 
         if(isset($this->tmdbCode))
-            $paramString .= '&tmdbCode='.$this->tmdbCode;
+            $paramString .= '&search_themoviedb='.$this->tmdbCode;
 
         if(isset($this->categories))
-            $paramString .= '&categories='.$this->categories;
+            $paramString .= '&category='.$this->categories;
 
         if(isset($this->minimalSeeders))
-            $paramString .= '&minimalSeeders='.$this->minimalSeeders;
+            $paramString .= '&min_seeders='.$this->minimalSeeders;
 
         if(isset($this->minimalLeechers))
-            $paramString .= '&minimalLeechers='.$this->minimalLeechers;
+            $paramString .= '&min_leechers='.$this->minimalLeechers;
 
         if(!isset($this->mode))
             $this->autoMode(); // Search or list ?
