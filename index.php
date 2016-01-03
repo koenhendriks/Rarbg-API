@@ -10,10 +10,10 @@ include('src/RarBG.php');
 
 $rar = new RarBG('MyRarBGApp');
 
-$rar->setDebug();
-$data = $rar->run();
+$rar->setDebug()->setFormat('json');
+$results = $rar->run();
 
-foreach($data as $result){
+foreach($results as $result){
     /**
      * @var $result Result
      */

@@ -1,6 +1,7 @@
 <?php
 
 require_once('Result.php');
+require_once('EpisodeInfo.php');
 /**
  * RarBG.php
  * Created by: koen
@@ -21,7 +22,9 @@ class RarBG
     private $minimalSeeders;
     private $minimalLeechers;
     private $lastApiCall;
+    private $format;
 
+    private $extended = true;
     private $debug = false;
     private $limit = 25;
     private $sort = 'last';
@@ -36,7 +39,7 @@ class RarBG
     public function __construct($appId)
     {
         if(!isset($appId))
-            throw new Exception('No app Id set. When querying the api please use the appId parameter with your app name so we can generate statistics for it.');
+            throw new Exception('No app Id set. When querying the api please use the appId parameter with your app name so RarBg can generate statistics for it.');
 
         $this->appId = $appId;
     }
@@ -88,6 +91,13 @@ class RarBG
 
         $paramString .= '&mode='.$this->mode;
 
+        if($this->extended)
+            $this->format = 'json_extended';
+        else
+            $this->format = 'json';
+
+        $paramString .= '&format='.$this->format;
+
         $url .= $paramString;
 
         if($this->debug)
@@ -109,7 +119,7 @@ class RarBG
             }else{
                 $results = [];
                 foreach($data->torrent_results as $result){
-                    array_push($results, new Result($result));
+                    array_push($results, new Result($result,$this->format));
                 }
                 return $results;
             }
@@ -171,7 +181,10 @@ class RarBG
     | Getters and Setters
     |--------------------------------------------------------------------------
     |
-    | Just basic getters and setters for the properties from here on out
+    | Just basic getters and setters for the properties from here on out that can be
+    | used if you want to do some manual calls. The run() method will make use of
+    | these set properties while maintaining anti flood and token handling.
+    |
     |
     */
 
@@ -405,6 +418,68 @@ class RarBG
     public function setRanked($ranked)
     {
         $this->ranked = $ranked;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->appId;
+    }
+
+    /**
+     * @param string $appId
+     * @return RarBg
+     */
+    public function setAppId($appId)
+    {
+        $this->appId = $appId;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isExtended()
+    {
+        return $this->extended;
+    }
+
+    /**
+     * @return RarBg
+     */
+    public function setExtended()
+    {
+        $this->extended = true;
+        return $this;
+    }
+
+    /**
+     * @return RarBg
+     */
+    public function unsetExtended()
+    {
+        $this->extended = false;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    /**
+     * @param mixed $format
+     * @return RarBg
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
         return $this;
     }
 }
