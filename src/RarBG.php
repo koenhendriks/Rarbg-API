@@ -25,6 +25,7 @@ class RarBG
     private $debug = false;
     private $limit = 25;
     private $sort = 'last';
+    private $ranked = 1;
     private $url = 'https://torrentapi.org/pubapi_v2.php';
 
     /**
@@ -59,6 +60,7 @@ class RarBG
         $paramString = '?token='.$this->token;
         $paramString .= '&sort='.$this->sort;
         $paramString .= '&limit='.$this->limit;
+        $paramString .= '&ranked='.$this->ranked;
 
         if(isset($this->searchString))
             $paramString .= '&search_string='.$this->searchString;
@@ -381,4 +383,28 @@ class RarBG
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function getDebug(){
+        return $this->debug;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRanked()
+    {
+        return $this->ranked;
+    }
+
+    /**
+     * @param int $ranked
+     * @return RarBg
+     */
+    public function setRanked($ranked)
+    {
+        $this->ranked = $ranked;
+        return $this;
+    }
 }
