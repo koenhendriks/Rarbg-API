@@ -88,7 +88,7 @@ class RarBG
 
         $paramString .= '&mode='.$this->mode;
 
-        $url .= $paramString;
+        $url .= urlencode($paramString);
 
         if($this->debug)
             echo $url.'<br/>';

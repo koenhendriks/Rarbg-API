@@ -11,6 +11,7 @@ include('src/RarBG.php');
 $rar = new RarBG('MyRarBGApp');
 
 $rar->setDebug();
+$rar->setSearchString('American%20Sniper');
 $data = $rar->run();
 
 foreach($data as $result){
