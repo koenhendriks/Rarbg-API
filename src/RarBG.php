@@ -91,10 +91,12 @@ class RarBG
 
         $paramString .= '&mode='.$this->mode;
 
-        if($this->extended)
-            $this->format = 'json_extended';
-        else
-            $this->format = 'json';
+        if(!isset($this->format)) {
+            if ($this->extended)
+                $this->format = 'json_extended';
+            else
+                $this->format = 'json';
+        }
 
         $paramString .= '&format='.$this->format;
 
