@@ -140,6 +140,37 @@ class RarBG
     }
 
     /**
+     * Checks if the mode should be set to search or list and sets the property accordingly
+     *
+     * @return string
+     */
+    public function autoMode(){
+        if(isset($searchString) || isset($imdbCode) || isset($tvdbCode) || isset($tmdbCode) || isset($categories)){
+            $this->setMode('search');
+            return 'search';
+        }else{
+            $this->setMode('list');
+            return 'list';
+        }
+    }
+
+    /**
+     * Run API call with set properties
+     */
+    public function run(){
+        return $this->getFromApi();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Getters and Setters
+    |--------------------------------------------------------------------------
+    |
+    | Just basic getters and setters for the properties from here on out
+    |
+    */
+
+    /**
      * @return mixed
      */
     public function getToken()
@@ -155,13 +186,6 @@ class RarBG
     {
         $this->token = $token;
         return $this;
-    }
-
-    /**
-     * Run API call with set properties
-     */
-    public function run(){
-        return $this->getFromApi();
     }
 
     /**
@@ -346,7 +370,7 @@ class RarBG
 
     /**
      * @param bool|true $debug
-     * @return mixed
+     * @return RarBg
      */
     public function setDebug($debug = true)
     {
