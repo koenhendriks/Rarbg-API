@@ -10,14 +10,16 @@ include('src/RarBG.php');
 
 $rar = new RarBG('MyRarBGApp');
 
-$rar->setDebug()->setCategories('Movies/x264/1080');
+$rar->setDebug()->setCategories(44);
 $results = $rar->run();
 
 foreach($results as $result){
     /**
      * @var $result Result
      */
-    echo '<a href="'.$result->getDownload().'">'.$result->getFilename().'</a><br/>';
+    echo '<a href="'.$result->getDownload().'">'.$result->getFilename().'</a> ';
     if($result->isExtended())
-        echo round($result->getSize() * pow(10,-9),2 ).' Gb <br/>';
+        echo 'Size: '.round($result->getSize() * pow(10,-9),2 ).' Gb, Imdb: '. $result->getEpisodeInfo()->getImdb();
+
+    echo '<br/>';
 }
