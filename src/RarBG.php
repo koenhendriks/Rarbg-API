@@ -61,6 +61,7 @@ class RarBG
 
         // Set parameters for call
         $paramString = '?token='.$this->token;
+        $paramString .= '&app_id='.$this->appId;
         $paramString .= '&sort='.$this->sort;
         $paramString .= '&limit='.$this->limit;
         $paramString .= '&ranked='.$this->ranked;
@@ -78,7 +79,7 @@ class RarBG
             $paramString .= '&search_themoviedb='.$this->tmdbCode;
 
         if(isset($this->categories))
-            $paramString .= '&category='.$this->categories;
+            $paramString .= '&category='.urlencode($this->categories);
 
         if(isset($this->minimalSeeders))
             $paramString .= '&min_seeders='.$this->minimalSeeders;
