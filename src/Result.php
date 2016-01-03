@@ -42,7 +42,7 @@ class Result
             $this->pubdate = $result->pubdate;
             $this->ranked = $result->ranked;
             $this->info_page = $result->info_page;
-            $this->episode_info = $result->episode_info;
+            $this->episode_info = new EpisodeInfo($result->episode_info);
         }
 
         $this->category = $result->category;
