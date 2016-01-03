@@ -150,7 +150,7 @@ class RarBG
      * @return string
      */
     public function autoMode(){
-        if(isset($searchString) || isset($imdbCode) || isset($tvdbCode) || isset($tmdbCode) || isset($categories)){
+        if(isset($this->searchString) || isset($this->imdbCode) || isset($this->tvdbCode) || isset($this->tmdbCode) || isset($this->categories)){
             $this->setMode('search');
             return 'search';
         }else{
