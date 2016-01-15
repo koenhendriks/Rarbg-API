@@ -2,6 +2,7 @@
 
 require_once('Result.php');
 require_once('EpisodeInfo.php');
+require_once('Filters.php');
 /**
  * RarBG.php
  * Created by: koen

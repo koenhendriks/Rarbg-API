@@ -44,18 +44,19 @@ class Filters
      * @param string $type of the filter
      * @param string $encoding optional encoding of the filter
      * @param string $quality optional quality of the filter
+     *
      * @throws Exception
      */
     public function __construct($type,$encoding='',$quality =''){
-        if($type =! '')
+        if($type != '')
             $this->type = $type;
         else
             throw new Exception("Failed applying filter. No type was set.");
 
-        if($encoding =! '')
+        if($encoding != '')
             $this->encoding = $encoding;
 
-        if($quality =! '')
+        if($quality != '')
            $this->quality = $quality;
 
         $this->setCategory();
@@ -65,12 +66,27 @@ class Filters
     /**
      * Sets the given filter to a string
      *
+     * @return array with integers of the categories
      * @throws Exception
      */
-    private function setCategory(){
+    public function setCategory(){
 
+        if($this->type == 'Movies' && !isset($this->encoding))
+            throw new Exception("Failed applying filter. Movies filter needs an encoding.");
 
+        $filterString = $this->type;
 
+        if(isset($this->encoding))
+            $filterString .= '/'.$this->encoding;
+
+        if(isset($this->quality) && $this->type != 'Movies')
+            throw new Exception('Failed applying filter. Only Movies suppert quality filter');
+        elseif(isset($this->quality))
+            $filterString .= '/'.$this->quality;
+
+        array_push($this->filters,$this->categories[$filterString]);
+
+        return $this->filters;
     }
 
 

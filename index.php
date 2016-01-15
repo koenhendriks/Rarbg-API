@@ -9,6 +9,7 @@
 include('src/RarBG.php');
 
 $rar = new RarBG('MyRarBGApp');
+$filters = new Filters('Movies','XVID','720');
 
 $rar->setDebug()->setCategories(44);
 $results = $rar->run();
