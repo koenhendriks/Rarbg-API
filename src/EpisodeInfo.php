@@ -17,10 +17,12 @@ class EpisodeInfo
 
     public function __construct($episodeInfo)
     {
-        $this->imdb = $episodeInfo->imdb;
-        $this->tvrage = $episodeInfo->tvrage;
-        $this->tvdb = $episodeInfo->tvdb;
-        $this->themoviedb = $episodeInfo->themoviedb;
+        if(!is_null($episodeInfo)){
+            $this->imdb = $episodeInfo->imdb;
+            $this->tvrage = $episodeInfo->tvrage;
+            $this->tvdb = $episodeInfo->tvdb;
+            $this->themoviedb = $episodeInfo->themoviedb;
+        }
     }
 
     /**
