@@ -119,7 +119,10 @@ class RarBG
             $data = json_decode($data);
 
             if(isset($data->error)){
-                throw new ErrorException($data->error,$data->error_code);
+                if($data->error == 'No results found')
+                    return false;
+                else
+                    throw new ErrorException($data->error,$data->error_code);
             }else{
                 $results = [];
                 foreach($data->torrent_results as $result){
